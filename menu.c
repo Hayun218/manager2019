@@ -1,14 +1,16 @@
 #include "menu.h"
 
-int ask_menu(int is_login){
+char* ask_menu(int is_login){ // 문자열을 return하므로 포인터 반환
 // 파라미터 : 로그인여부 (0 No, 1Yes)
-// 리턴값 : 선택한 메뉴번호
-// 메뉴번호 : 1. Sign up 2. Log in 3. Log out 0. Exit
-  int menu;
+  static char menu[10];
   if(is_login==0)
-    printf("Choose menu : 1. Sign up  2. Log in   3. Show all accounts    0. Exit >> ");
+    printf("> ");
   else
-    printf("Choose menu : 4. Log out 0. Exit >> ");
-  scanf("%d", &menu);
+    printf("# ");
+  scanf("%s", menu);
   return menu;
 }
+#ifndef SYMBOL
+#define  value
+#endif
+
