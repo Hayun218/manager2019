@@ -1,7 +1,7 @@
 CC = gcc 
 CFLAGS = -W -Wall
-TARGET = Manager
-TARGET2 = Manager_d
+TARGET = manager
+TARGET2 = manager_d
 OBJECTS = menu.o user.o main.o
 D_OBJECTS = menu_d.o user_d.o main_d.o
 DEBUG = -DDEBUG_MODE 

@@ -4,8 +4,8 @@ int load_file(LOGIN* list[], char* filename){
   int count=0;
   FILE *datafile = fopen(filename, "rt");
   #ifdef DEBUG_MODE
-         printf("DEBUG>> datafile opened! \\n");
-		 #endif
+         printf("DEBUG>> datafile opened!\n");
+ #endif
   while(!feof(datafile)){
     list[count]=(LOGIN*)malloc(sizeof(LOGIN));
     fscanf(datafile,"%s %s",list[count]->id,list[count]->password);
@@ -21,9 +21,9 @@ void print_list(LOGIN* list[], char*filename){
   printf("User list (id/password)\n");
   int count = 0;
   FILE *datafile = fopen(filename, "rt");
-  #ifdef DEBUG_MODE
-         printf("DEBUG>> datafile opened! \\n");
-		 #endif
+ #ifdef DEBUG_MODE
+         printf("DEBUG>> datafile opened!\n");
+#endif
   while(!feof(datafile)){
     list[count]=(LOGIN*)malloc(sizeof(LOGIN));
     fscanf(datafile,"%s %s",list[count]->id,list[count]->password);
@@ -33,7 +33,7 @@ void print_list(LOGIN* list[], char*filename){
   }
 }
 
-int join(LOGIN* list[], int count, char* filename, int newuser){
+int join(LOGIN* list[], int count, char* filename){
   char id[20], pass[20];
   while(1){
     printf("Enter new user id >> ");
@@ -55,16 +55,16 @@ int join(LOGIN* list[], int count, char* filename, int newuser){
       strcpy(list[count]->id, id);
       strcpy(list[count]->password, pass);
       printf("New user added!\n");
-      newuser++;
       FILE *datafile = fopen(filename, "awt");#ifdef DEBUG_MODE
-         printf("DEBUG>> datafile opened! \\n");
-		 #endif
+ #ifdef DEBUG_MODE
+         printf("DEBUG>> datafile opened! \n");
+ #endif
       fprintf(datafile,"%s %s\n", list[count]->id, list[count]->password);
       fclose(datafile);
       break;
     }
 }
-    return newuser;
+    return count;
 }
 
 int login(LOGIN* list[], int count){
