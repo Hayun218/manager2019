@@ -22,7 +22,6 @@ int main(int argc, char* argv[]) {
   }
     printf("> Welcome!!\n");
   int count = load_file(userlist, argv[1]);
-  int new = 0;
   char *menu_id;
   while(1){
     if(is_login==0 || is_login==1) menu_id = ask_menu(is_login); // 현재 로그인 되었는지의 여부를 파라미터로 알려야 한다.
@@ -34,10 +33,7 @@ int main(int argc, char* argv[]) {
         continue;
       }
     }
-    if(strcmp(menu_id, "join") == 0){
-      new = join(userlist, count, argv[1], new);
-      if(new >= 1) count = count+new;
-    }
+    if(strcmp(menu_id, "join") == 0) count = join(userlist, count, argv[1]);
     else if (strcmp(menu_id, "login") == 0) is_login = login(userlist, count);
     else if (strcmp(menu_id, "list") == 0) print_list(userlist, argv[1]);
     else if (strcmp(menu_id, "logout") == 0) {
@@ -50,7 +46,7 @@ int main(int argc, char* argv[]) {
       }
     }
     else if(strcmp(menu_id, "exit") == 0 ) {
-      printf("%d records saved to %s\n", new, argv[1]);
+      printf("%d records saved to %s\n", count, argv[1]);
       return 0;
     }
     else printf("No such command\n");
