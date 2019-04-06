@@ -6,9 +6,9 @@ int ask_menu(int is_login){
 // 메뉴번호 : 1. Sign up 2. Log in 3. Log out 0. Exit
   int menu;
   if(is_login==0)
-    printf("Choose menu : 1. Sign up 2. Log in 0. Exit >> ");
+    printf("Choose menu : 1. Sign up  2. Log in   3. Show all accounts    0. Exit >> ");
   else
-    printf("Choose menu : 3. Log out 0. Exit >> ");
+    printf("Choose menu : 4. Log out 0. Exit >> ");
   scanf("%d", &menu);
   return menu;
 }
