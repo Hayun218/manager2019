@@ -15,18 +15,19 @@ int load_file(LOGIN* list[], char* filename){
 }
 
 void print_list(LOGIN* list[], char*filename){
+  printf("User list (id/password)\n");
   int count = 0;
   FILE *datafile = fopen(filename, "rt");
   while(!feof(datafile)){
     list[count]=(LOGIN*)malloc(sizeof(LOGIN));
     fscanf(datafile,"%s %s",list[count]->id,list[count]->password);
-    printf("%s %s\n", list[count]->id,list[count]->password);
-   if(feof(datafile)) break;	  
-   else  count++;
+    if(feof(datafile)) break;
+    printf("[%d] %s / %s\n", count+1, list[count]->id,list[count]->password);
+     count++;
   }
 }
 
-int join(LOGIN* list[], int count, char* filename){
+int join(LOGIN* list[], int count, char* filename, int newuser){
   char id[20], pass[20];
   while(1){
     printf("Enter new user id >> ");
@@ -34,7 +35,6 @@ int join(LOGIN* list[], int count, char* filename){
     int dup=0;
     for(int i=0;i<count;i++){
       if(strcmp(id, list[i]->id)==0) {
-        printf("in");
         dup=1; break;
       }
     }
@@ -49,13 +49,14 @@ int join(LOGIN* list[], int count, char* filename){
       strcpy(list[count]->id, id);
       strcpy(list[count]->password, pass);
       printf("New user added!\n");
+      newuser++;
       FILE *datafile = fopen(filename, "awt");
       fprintf(datafile,"%s %s\n", list[count]->id, list[count]->password);
       fclose(datafile);
       break;
     }
 }
-    return count;
+    return newuser;
 }
 
 int login(LOGIN* list[], int count){
