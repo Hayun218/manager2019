@@ -2,18 +2,31 @@
 
 int load_file(LOGIN* list[], char* filename){
   int count=0;
-  FILE *datafile = fopen(filename, "r");
+  FILE *datafile = fopen(filename, "rt");
   while(!feof(datafile)){
     list[count]=(LOGIN*)malloc(sizeof(LOGIN));
     fscanf(datafile,"%s %s",list[count]->id,list[count]->password);
-    count++;
+    if(feof(datafile)) break;
+    else count++;
   }
-  printf("%d records read!\n",count);\
+  printf("%d records read!\n",count);
   fclose(datafile);
   return count;
 }
 
-void join(LOGIN* list[], int count){
+void print_list(LOGIN* list[], char*filename){
+  int count = 0;
+  FILE *datafile = fopen(filename, "rt");
+  while(!feof(datafile)){
+    list[count]=(LOGIN*)malloc(sizeof(LOGIN));
+    fscanf(datafile,"%s %s",list[count]->id,list[count]->password);
+    printf("%s %s\n", list[count]->id,list[count]->password);
+   if(feof(datafile)) break;	  
+   else  count++;
+  }
+}
+
+int join(LOGIN* list[], int count, char* filename){
   char id[20], pass[20];
   while(1){
     printf("Enter new user id >> ");
@@ -21,6 +34,7 @@ void join(LOGIN* list[], int count){
     int dup=0;
     for(int i=0;i<count;i++){
       if(strcmp(id, list[i]->id)==0) {
+        printf("in");
         dup=1; break;
       }
     }
@@ -30,13 +44,18 @@ void join(LOGIN* list[], int count){
     else{
       printf("Enter password >> ");
       scanf("%s", pass);
+      count++;
       list[count] = (LOGIN*)malloc(sizeof(LOGIN));
       strcpy(list[count]->id, id);
       strcpy(list[count]->password, pass);
       printf("New user added!\n");
+      FILE *datafile = fopen(filename, "awt");
+      fprintf(datafile,"%s %s\n", list[count]->id, list[count]->password);
+      fclose(datafile);
       break;
     }
-  }
+}
+    return count;
 }
 
 int login(LOGIN* list[], int count){
@@ -53,12 +72,12 @@ int login(LOGIN* list[], int count){
   }
   if(dup!=1){
     printf("No such user!!\n");
-    return -1;
+    return 0;
   }
   else{
     printf("Enter password >> ");
     scanf("%s", pass);
-    if(strcmp(list[found]->password, pass)==0){
+    if(strcmp(list[found]->password, pass) ==0){
       printf("Welcome %s!!\n", id);
       return 1;
     }
@@ -74,11 +93,12 @@ void logout(int* is_login){
   printf("Logout!!\n");
 }
 
-void save_file(LOGIN* list[], int count, char* filename){
-  FILE *datafile = fopen(filename, "w");
+/*void save_file(LOGIN* list[], int count, char* filename){
+  FILE *datafile = fopen(filename, "wt");
   for(int i=0; i<count; i++){
     fprintf(datafile, "%s %s\n", list[i]->id, list[i]->password);
   }
   printf("%s Saved!\n", filename);
   fclose(datafile);
-}
+}*/
+
