@@ -55,7 +55,7 @@ int join(LOGIN* list[], int count, char* filename){
       strcpy(list[count]->id, id);
       strcpy(list[count]->password, pass);
       printf("New user added!\n");
-      FILE *datafile = fopen(filename, "awt");#ifdef DEBUG_MODE
+      FILE *datafile = fopen(filename, "awt");
  #ifdef DEBUG_MODE
          printf("DEBUG>> datafile opened! \n");
  #endif
