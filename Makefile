@@ -24,4 +24,4 @@ main_d.o : main.c
 menu_d.o : menu.c
 	$(CC) $(DEBUG) $(CFLAGS) -c -o $@ $^ 
 clean :
-	rm *.o Manager Manager_d
+	rm *.o manager manager_d
